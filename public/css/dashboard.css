@@ -1,0 +1,139 @@
+/* Basic Reset & Layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    color: #333;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 240px;
+    background-color: #fff;
+    border-right: 1px solid #eee;
+    min-height: 100vh;
+    padding: 1rem;
+    position: fixed; /* Keep sidebar fixed on the left */
+  }
+  
+  .sidebar-header {
+    margin-bottom: 2rem;
+  }
+  
+  .app-name {
+    font-size: 1.5rem;
+    margin: 0;
+  }
+  
+  .sidebar-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .sidebar-nav li {
+    margin-bottom: 1rem;
+  }
+  
+  .sidebar-nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    display: block;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .sidebar-nav a:hover {
+    background-color: #f0f0f0;
+  }
+  
+  /* Submenu styling */
+  .has-submenu .submenu {
+    margin-top: 0.5rem;
+    margin-left: 1rem; /* Indent the submenu */
+    display: none;     /* Hide by default if you want a collapsible menu */
+  }
+  
+  .has-submenu:hover .submenu {
+    display: block;    /* Show submenu on hover */
+  }
+  
+  .submenu li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .submenu li a {
+    font-size: 0.95rem;
+    padding: 0.5rem 1rem;
+  }
+  
+  /* Main Content Area */
+  .main-content {
+    margin-left: 240px; /* Make room for the fixed sidebar */
+    padding: 1rem;
+  }
+  
+  /* Top Bar */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .topbar-left {
+    flex: 1; /* search bar can grow */
+  }
+  
+  .search-input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 250px;
+  }
+  
+  .topbar-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.5rem;
+  }
+  
+  .user-details {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  
+  .user-name {
+    font-weight: bold;
+  }
+  
+  .user-status {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  /* Dashboard Content */
+  .dashboard-content {
+    padding: 1rem 0;
+  }
+  
