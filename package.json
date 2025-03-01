@@ -4,10 +4,9 @@
   "description": "A portal project using Express, Mongoose, and more.",
   "main": "app.js",
   "scripts": {
-  "start": "node app.js",
-  "dev": "nodemon app.js",
-  "postinstall": "npm rebuild bcrypt --build-from-source"
-},
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "postinstall": "npm rebuild bcrypt --build-from-source"
   },
   "keywords": [],
   "author": "",
