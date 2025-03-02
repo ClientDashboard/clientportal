@@ -51,9 +51,9 @@ app.use('/api/client-dashboard', clientDashboardRoutes);
 const usageRoutes = require('./routes/usageRoutes');
 app.use('/api/usage', usageRoutes);
 
-// Root route
+// Root route: Serve the landing page (index.html)
 app.get('/', (req, res) => {
-  res.send('¡Hola Mundo con Mongoose!');
+  res.sendFile(__dirname + '/public/index.html');
 });
 
 // Centralized error handling middleware

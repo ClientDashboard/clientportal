@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar Sesión</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="login-container">
+    <h1>Iniciar Sesión</h1>
+    <form id="loginForm">
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+      
+      <label for="password">Contraseña:</label>
+      <input type="password" id="password" required>
+      
+      <button type="submit">Sign In</button>
+    </form>
+    <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
+  </div>
+  
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password })
+        });
+        const data = await res.json();
+        
+        if (res.ok) {
+          alert('Login exitoso');
+          // Guardar token en localStorage
+          localStorage.setItem('token', data.token);
+          // Redirigir al dashboard
+          window.location.href = 'dashboard.html';
+        } else {
+          alert(data.error || 'Error al iniciar sesión');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Ocurrió un error en la solicitud');
+      }
+    });
+  </script>
+</body>
+</html>
