@@ -8,16 +8,16 @@ import os
 #os.environ["LC_ALL"] = "en_US.UTF-8"
 
 urls = [
-    "File%20formats/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory",
-    "File formats/assets/images/SVG, Scalable Vector Graphics/html, W3C v1.2 rec (tiny)/directory/",
-    "File%20formats/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory/somefile.rng",
-    "File%20formats/assets/images/SVG%2C%20Scalable%20Vector%20Graphics/html%2c%20W3C%20v1.2%20rec%20%28tiny%29/directory/somefile.rng",
-    "File%20formats/assets/images/SVG%2C%20Scalable%20Vector%20Graphics/html%2c%20W3C%20v1.2%20rec%20%28tiny%29/directory/",
-    "File%20formats/assets/images/SVG%2C%20Scalable%20Vector%20Graphics/html%2C%20W3C%20v1.2%20rec%20%28tiny%29/directory"]
+    "File%20formats//landingpage/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory",
+    "File formats//landingpage/assets/images/SVG, Scalable Vector Graphics/html, W3C v1.2 rec (tiny)/directory/",
+    "File%20formats//landingpage/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory/somefile.rng",
+    "File%20formats//landingpage/assets/images/SVG%2C%20Scalable%20Vector%20Graphics/html%2c%20W3C%20v1.2%20rec%20%28tiny%29/directory/somefile.rng",
+    "File%20formats//landingpage/assets/images/SVG%2C%20Scalable%20Vector%20Graphics/html%2c%20W3C%20v1.2%20rec%20%28tiny%29/directory/",
+    "File%20formats//landingpage/assets/images/SVG%2C%20Scalable%20Vector%20Graphics/html%2C%20W3C%20v1.2%20rec%20%28tiny%29/directory"]
 
 
 redirected = [
-        "File%20formats/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory/"
+        "File%20formats//landingpage/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory/"
 ]
 
 ############# File Definitions ###############################################
@@ -29,10 +29,10 @@ File1 = ""
 
 def get_redirect(url):
     data = {
-        "File%20formats/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory" :
-           "File%20formats/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory/",
-        "File%20formats/assets/images/SVG%2C%20Scalable%20Vector%20Graphics/html%2C%20W3C%20v1.2%20rec%20%28tiny%29/directory" :
-           "File%20formats/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory/"
+        "File%20formats//landingpage/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory" :
+           "File%20formats//landingpage/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory/",
+        "File%20formats//landingpage/assets/images/SVG%2C%20Scalable%20Vector%20Graphics/html%2C%20W3C%20v1.2%20rec%20%28tiny%29/directory" :
+           "File%20formats//landingpage/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/directory/"
     }
     dest = data.get(url)
     if dest:
@@ -41,7 +41,7 @@ def get_redirect(url):
     return None
 
 
-index_url = "File%20formats/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/index.html"
+index_url = "File%20formats//landingpage/assets/images/SVG,%20Scalable%20Vector%20Graphics/html,%20W3C%20v1.2%20rec%20(tiny)/index.html"
 Index_File = WgetFile (index_url, Index)
 Files = ([Index_File] + [WgetFile(i, File1, rules=get_redirect(i)) for i in (redirected + urls)])
 

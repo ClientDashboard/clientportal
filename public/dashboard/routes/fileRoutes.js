@@ -1,10 +1,10 @@
 // routes/fileRoutes.js
 const express = require('express');
 const router = express.Router(); // Define the router here
-const authMiddleware = require('../middlewares/authMiddleware');
+const authMiddleware = require('../../../middlewares/authMiddleware');
 const multer = require('multer');
 const path = require('path');
-const File = require('../models/File');
+const File = require('../../../models/File');
 
 // Configure multer storage to save files in 'public/uploads'
 const storage = multer.diskStorage({
