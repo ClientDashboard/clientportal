@@ -20,35 +20,35 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // Auth routes
-const authRoutes = require('./public/dashboard/routes/authRoutes');
+const authRoutes = require('./dashboard/routes/authRoutes');
 app.use('/api/auth', authRoutes);
 
 // Protected user routes
-const userRoutes = require('./public/dashboard/routes/userRoutes');
+const userRoutes = require('./dashboard/routes/userRoutes');
 app.use('/api/user', userRoutes);
 
 // Admin routes
-const adminRoutes = require('./public/dashboard/routes/adminRoutes');
+const adminRoutes = require('./dashboard/routes/adminRoutes');
 app.use('/api/admin', adminRoutes);
 
 // File management routes
-const fileRoutes = require('./public/dashboard/routes/fileRoutes');
+const fileRoutes = require('./dashboard/routes/fileRoutes');
 app.use('/api/files', fileRoutes);
 
 // Client folder routes (for creating & sharing client portals)
-const clientFolderRoutes = require('./public/dashboard/routes/clientFolderRoutes');
+const clientFolderRoutes = require('./dashboard/routes/clientFolderRoutes');
 app.use('/api/client-folders', clientFolderRoutes);
 
 // Client account routes (for clients to register and access a folder)
-const clientAccountRoutes = require('./public/dashboard/routes/clientAccountRoutes');
+const clientAccountRoutes = require('./dashboard/routes/clientAccountRoutes');
 app.use('/api/client-accounts', clientAccountRoutes);
 
 // Client dashboard routes (for clients to view their portal)
-const clientDashboardRoutes = require('./public/dashboard/routes/clientDashboardRoutes');
+const clientDashboardRoutes = require('./dashboard/routes/clientDashboardRoutes');
 app.use('/api/client-dashboard', clientDashboardRoutes);
 
 // Usage routes (to view usage data)
-const usageRoutes = require('./public/dashboard/routes/usageRoutes');
+const usageRoutes = require('./dashboard/routes/usageRoutes');
 app.use('/api/usage', usageRoutes);
 
 // 🔹 Serve the landing page (landingpage/index.html) as the default homepage
