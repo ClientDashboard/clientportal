@@ -1,0 +1,86 @@
+@import url('tokens.css');
+
+/* Global resets or defaults */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-size: var(--font-size-base);
+  background-color: var(--white);
+  color: var(--dark-gray);
+}
+
+/* Basic container or wrapper styles */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header / Navbar */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-medium) 0;
+}
+
+.logo {
+  font-size: var(--font-size-heading);
+  font-family: var(--font-secondary);
+  color: var(--brown);
+}
+
+.nav-links a {
+  margin-left: var(--spacing-medium);
+  text-decoration: none;
+  color: var(--dark-gray);
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  color: var(--orange);
+}
+
+/* Hero section */
+.hero {
+  text-align: center;
+  padding: var(--spacing-large) 0;
+}
+
+.hero h1 {
+  font-size: var(--font-size-heading);
+  margin-bottom: var(--spacing-medium);
+}
+
+.hero p {
+  font-size: var(--font-size-subheading);
+  margin-bottom: var(--spacing-large);
+  max-width: 600px;
+  margin: 0 auto var(--spacing-large) auto;
+}
+
+.btn-primary {
+  background-color: var(--orange);
+  color: var(--white);
+  padding: var(--spacing-small) var(--spacing-medium);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-right: var(--spacing-small);
+}
+
+.btn-secondary {
+  background-color: var(--brown);
+  color: var(--white);
+  padding: var(--spacing-small) var(--spacing-medium);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
