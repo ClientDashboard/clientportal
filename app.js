@@ -1,14 +1,12 @@
 // app.js
 require('dotenv').config();
 console.log('JWT_SECRET from .env:', process.env.JWT_SECRET);
+
 const express = require('express');
 const morgan = require('morgan');
 const connectDB = require('./config/database');
 
 const app = express(); // Initialize app before using it
-
-// Serve static files from the 'public' folder
-app.use(express.static('public'));
 
 // Connect to MongoDB
 connectDB();
@@ -19,59 +17,57 @@ app.use(morgan('dev'));
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// Auth routes
-const authRoutes = require('./dashboard/routes/authRoutes');
-app.use('/api/auth', authRoutes);
+// ✅ Serve static files correctly
+app.use('/landingpage/assets', express.static(__dirname + '/public/landingpage/assets'));
+app.use('/dashboard/assets', express.static(__dirname + '/public/dashboard/assets'));
 
-// Protected user routes
-const userRoutes = require('./dashboard/routes/userRoutes');
-app.use('/api/user', userRoutes);
-
-// Admin routes
-const adminRoutes = require('./dashboard/routes/adminRoutes');
-app.use('/api/admin', adminRoutes);
-
-// File management routes
-const fileRoutes = require('./dashboard/routes/fileRoutes');
-app.use('/api/files', fileRoutes);
-
-// Client folder routes (for creating & sharing client portals)
-const clientFolderRoutes = require('./dashboard/routes/clientFolderRoutes');
-app.use('/api/client-folders', clientFolderRoutes);
-
-// Client account routes (for clients to register and access a folder)
-const clientAccountRoutes = require('./dashboard/routes/clientAccountRoutes');
-app.use('/api/client-accounts', clientAccountRoutes);
-
-// Client dashboard routes (for clients to view their portal)
-const clientDashboardRoutes = require('./dashboard/routes/clientDashboardRoutes');
-app.use('/api/client-dashboard', clientDashboardRoutes);
-
-// Usage routes (to view usage data)
-const usageRoutes = require('./dashboard/routes/usageRoutes');
-app.use('/api/usage', usageRoutes);
-
-// 🔹 Serve the landing page (landingpage/index.html) as the default homepage
+// ✅ Serve the landing page as the homepage
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/landingpage/index.html');
+  res.sendFile(__dirname + '/public/landingpage/efectivio-home.html');
 });
 
-// 🔹 Optional: Redirect old index.html to the landing page
+// ✅ Optional: Redirect old index.html to the new landing page
 app.get('/index.html', (req, res) => {
   res.redirect('/');
 });
 
-// Centralized error handling middleware
+// ✅ Serve dashboard pages
+app.get('/dashboard', (req, res) => {
+  res.sendFile(__dirname + '/public/dashboard/dashboard.html');
+});
+
+// ✅ Routes for Dashboard APIs
+const authRoutes = require('./public/dashboard/routes/authRoutes');
+const userRoutes = require('./public/dashboard/routes/userRoutes');
+const adminRoutes = require('./public/dashboard/routes/adminRoutes');
+const fileRoutes = require('./public/dashboard/routes/fileRoutes');
+const clientFolderRoutes = require('./public/dashboard/routes/clientFolderRoutes');
+const clientAccountRoutes = require('./public/dashboard/routes/clientAccountRoutes');
+const clientDashboardRoutes = require('./public/dashboard/routes/clientDashboardRoutes');
+const usageRoutes = require('./public/dashboard/routes/usageRoutes');
+const protectedRoutes = require('./public/dashboard/routes/protectedRoutes');
+
+app.use('/api/auth', authRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/files', fileRoutes);
+app.use('/api/client-folders', clientFolderRoutes);
+app.use('/api/client-accounts', clientAccountRoutes);
+app.use('/api/client-dashboard', clientDashboardRoutes);
+app.use('/api/usage', usageRoutes);
+app.use('/api/protected', protectedRoutes);
+
+// ✅ Centralized error handling middleware
 const errorHandler = require('./middlewares/errorHandler');
 app.use(errorHandler);
 
-// Use port from .env or default to 3000
+// ✅ Set up server
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
 
-// Graceful shutdown: Close server on SIGINT (Ctrl+C)
+// ✅ Graceful shutdown: Close server on SIGINT (Ctrl+C)
 process.on('SIGINT', () => {
   console.log('Received SIGINT. Shutting down gracefully.');
   server.close(() => {
