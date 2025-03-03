@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard - Techstyles</title>
+  <!-- Link to your CSS file -->
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h2 class="app-name">Menu</h2>
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li><a href="#">Clients</a></li>
+        <li><a href="#">Task</a></li>
+        <li><a href="#">PDF Forms</a></li>
+        <li><a href="#">Forms</a></li>
+        <li class="has-submenu">
+          <a href="#">Pages</a>
+          <ul class="submenu">
+            <li><a href="#">File Manager</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </aside>
+
+  <!-- Main Content Area -->
+  <div class="main-content">
+
+    <!-- Header / Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <!-- Search Input -->
+        <input type="text" class="search-input" placeholder="Search Using AI" />
+      </div>
+      <div class="topbar-right">
+        <!-- User Info -->
+        <div class="user-info">
+          <!-- If you have an avatar image, place it in public/assets/images/user-avatar.png -->
+          <img src="assets/images/user-avatar.png" alt="User Avatar" class="user-avatar" />
+          <div class="user-details">
+            <span class="user-name">Sophia Williams</span>
+            <span class="user-status">Welcome back to Techstyles</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Content -->
+    <div class="dashboard-content">
+      <h1>Welcome Back!</h1>
+      <p>We’ll add the overview sections, tasks, time tracking, etc. here.</p>
+    </div>
+
+  </div>
+
+  <!-- Optional JS -->
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

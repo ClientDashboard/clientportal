@@ -51,9 +51,14 @@ app.use('/api/client-dashboard', clientDashboardRoutes);
 const usageRoutes = require('./routes/usageRoutes');
 app.use('/api/usage', usageRoutes);
 
-// Root route: Serve the landing page (index.html)
+// 🔹 Serve the landing page (landingpage/index.html) as the default homepage
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
+  res.sendFile(__dirname + '/public/landingpage/index.html');
+});
+
+// 🔹 Optional: Redirect old index.html to the landing page
+app.get('/index.html', (req, res) => {
+  res.redirect('/');
 });
 
 // Centralized error handling middleware
@@ -63,7 +68,7 @@ app.use(errorHandler);
 // Use port from .env or default to 3000
 const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
 
 // Graceful shutdown: Close server on SIGINT (Ctrl+C)
