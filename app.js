@@ -4,6 +4,7 @@ console.log('JWT_SECRET from .env:', process.env.JWT_SECRET);
 
 const express = require('express');
 const morgan = require('morgan');
+const path = require('path');
 const connectDB = require('./config/database');
 
 const app = express(); // Initialize app before using it
@@ -18,22 +19,20 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 // ✅ Serve static files correctly
-app.use('/landingpage/assets', express.static(__dirname + '/public/landingpage/assets'));
-app.use('/dashboard/assets', express.static(__dirname + '/public/dashboard/assets'));
+app.use('/landingpage/assets', express.static(path.join(__dirname, 'public/landingpage/assets')));
+app.use('/dashboard/assets', express.static(path.join(__dirname, 'public/dashboard/assets')));
+
+// ✅ Fix asset paths for landing page
+app.use(express.static(path.join(__dirname, 'public/landingpage')));
 
 // ✅ Serve the landing page as the homepage
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/landingpage/efectivio-home.html');
+  res.sendFile(path.join(__dirname, 'public/landingpage/efectivio-home.html'));
 });
 
-// ✅ Optional: Redirect old index.html to the new landing page
-app.get('/index.html', (req, res) => {
-  res.redirect('/');
-});
-
-// ✅ Serve dashboard pages
+// ✅ Serve the dashboard page
 app.get('/dashboard', (req, res) => {
-  res.sendFile(__dirname + '/public/dashboard/dashboard.html');
+  res.sendFile(path.join(__dirname, 'public/dashboard/dashboard.html'));
 });
 
 // ✅ Routes for Dashboard APIs
