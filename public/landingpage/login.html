@@ -1,54 +1,132 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" dir="ltr">
 <head>
-  <meta charset="UTF-8">
-  <title>Iniciar Sesión</title>
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-  <div class="login-container">
-    <h1>Iniciar Sesión</h1>
-    <form id="loginForm">
-      <label for="email">Email:</label>
-      <input type="email" id="email" required>
-      
-      <label for="password">Contraseña:</label>
-      <input type="password" id="password" required>
-      
-      <button type="submit">Sign In</button>
-    </form>
-    <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
-  </div>
-  
-  <script>
-    const loginForm = document.getElementById('loginForm');
-    loginForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      const password = document.getElementById('password').value;
-      
-      try {
-        const res = await fetch('/api/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, password })
-        });
-        const data = await res.json();
-        
-        if (res.ok) {
-          alert('Login exitoso');
-          // Guardar token en localStorage
-          localStorage.setItem('token', data.token);
-          // Redirigir al dashboard
-          window.location.href = 'dashboard.html';
-        } else {
-          alert(data.error || 'Error al iniciar sesión');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="icon" type="image/png" href="../favicon.ico"/>
+    <meta name="description" content="Plataforma completa para startups y SaaS.">
+    <meta name="keywords" content="saas, software, startup, digital, landing, marketing, bootstrap, plataforma">
+    <meta name="theme-color" content="#178d72">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="/landingpage/assets/css/unicons.min.css">
+    <link rel="stylesheet" href="/landingpage/assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="/landingpage/assets/css/magic-cursor.min.css">
+    <link rel="stylesheet" href="/landingpage/assets/css/theme/main.min.purge.css">
+
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
         }
-      } catch (error) {
-        console.error(error);
-        alert('Ocurrió un error en la solicitud');
-      }
-    });
-  </script>
+        .btn-google {
+            background-color: #db4437;
+            color: white;
+        }
+        .btn-facebook {
+            background-color: #1877f2;
+            color: white;
+        }
+    </style>
+
+    <!-- FontAwesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="uni-body bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-200">
+    <div id="sign-in" class="sign-in section panel overflow-hidden bg-secondary dark:bg-gray-900 h-screen w-full">
+        <div class="section-outer panel h-full">
+            <div class="section-inner panel h-full">
+                <div class="panel row child-cols-12 md:child-cols-6 g-0 h-full">
+                    
+                    <!-- Imagen Lado Izquierdo -->
+                    <div>
+                        <figure class="panel h-full m-0 rounded">
+                            <img class="media-cover image" src="/landingpage/assets/images/common/login.webp" alt="Inicio de sesión">
+                        </figure>
+                    </div>
+
+                    <!-- Formulario Lado Derecho -->
+                    <div>
+                        <div class="panel vstack justify-center h-screen w-full overflow-hidden">
+                            <div class="panel py-4 px-2">
+                                <div class="panel vstack gap-3 w-100 sm:w-350px mx-auto text-center">
+                                    <h1 class="h4 sm:h2">Iniciar Sesión</h1>
+
+                                    <!-- 🔹 Botones de Google y Facebook -->
+                                    <div class="d-grid mb-2">
+                                        <button class="btn btn-google btn-login text-uppercase fw-bold" type="button">
+                                            <i class="fab fa-google me-2"></i> Iniciar sesión con Google
+                                        </button>
+                                    </div>
+                                    <div class="d-grid mb-3">
+                                        <button class="btn btn-facebook btn-login text-uppercase fw-bold" type="button">
+                                            <i class="fab fa-facebook-f me-2"></i> Iniciar sesión con Facebook
+                                        </button>
+                                    </div>
+
+                                    <hr class="my-4">
+
+                                    <!-- Formulario de Inicio de Sesión -->
+                                    <form id="loginForm" class="vstack gap-2">
+                                        <input class="form-control h-48px w-full" type="email" id="email" placeholder="Tu correo" required>
+                                        <input class="form-control h-48px w-full" type="password" id="password" placeholder="Contraseña" required>
+
+                                        <div class="hstack justify-between text-start">
+                                            <div class="form-check">
+                                                <input id="remember_me" class="form-check-input" type="checkbox">
+                                                <label for="remember_me" class="form-check-label fs-6">Recuérdame</label>
+                                            </div>
+                                            <a class="uc-link" href="reset-password.html">¿Olvidaste tu contraseña?</a>
+                                        </div>
+
+                                        <button class="btn btn-primary btn-md text-white mt-2" type="submit">Ingresar</button>
+                                    </form>
+
+                                    <p>¿No tienes cuenta? <a class="uc-link" href="register.html">Regístrate aquí</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script defer src="/landingpage/assets/js/libs/jquery.min.js"></script>
+    <script defer src="/landingpage/assets/js/libs/bootstrap.min.js"></script>
+    <script defer src="/landingpage/assets/js/app.js"></script>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const res = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    alert('Inicio de sesión exitoso');
+                    localStorage.setItem('token', data.token);
+                    window.location.href = '/dashboard';
+                } else {
+                    alert(data.error || 'Error al iniciar sesión');
+                }
+            } catch (error) {
+                console.error(error);
+                alert('Ocurrió un error en la solicitud');
+            }
+        });
+    </script>
 </body>
 </html>

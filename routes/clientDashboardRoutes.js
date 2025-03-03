@@ -1,8 +1,7 @@
-// routes/clientDashboardRoutes.js
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middlewares/authMiddleware');
-const ClientUser = require('../models/ClientUser');
+const authMiddleware = require('../middlewares/authMiddleware'); // Fixed path
+const ClientUser = require('../models/ClientUser'); // Fixed path
 
 // Protected client dashboard route
 router.get('/dashboard', authMiddleware, async (req, res) => {

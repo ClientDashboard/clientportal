@@ -1,10 +1,9 @@
-// routes/fileRoutes.js
 const express = require('express');
-const router = express.Router(); // Define the router here
-const authMiddleware = require('../../../middlewares/authMiddleware');
+const router = express.Router();
+const authMiddleware = require('../middlewares/authMiddleware'); // Fixed path
 const multer = require('multer');
 const path = require('path');
-const File = require('../../../models/File');
+const File = require('../models/File'); // Fixed path
 
 // Configure multer storage to save files in 'public/uploads'
 const storage = multer.diskStorage({
@@ -12,21 +11,18 @@ const storage = multer.diskStorage({
     cb(null, 'public/uploads/');
   },
   filename: function (req, file, cb) {
-    // Use current timestamp + original filename to avoid conflicts
     cb(null, Date.now() + '-' + file.originalname);
   }
 });
 const upload = multer({ storage });
 
 // Upload endpoint (protected)
-// Removed file usage limit check so that users can upload unlimited files.
 router.post('/upload', authMiddleware, upload.single('file'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
     
-    // Save file metadata to the database
     const newFile = await File.create({
       owner: req.user.id,
       filename: req.file.filename,
@@ -54,9 +50,8 @@ router.get('/list', authMiddleware, async (req, res) => {
 
 // Download endpoint (protected)
 router.get('/download/:filename', authMiddleware, (req, res) => {
-  // Decode the filename in case of special characters
   const filename = decodeURIComponent(req.params.filename);
-  const filePath = path.join(__dirname, '../public/uploads', filename);
+  const filePath = path.join(__dirname, '../public/uploads', filename); // Fixed path
   res.download(filePath, (err) => {
     if (err) {
       return res.status(500).json({ error: 'Error downloading file' });

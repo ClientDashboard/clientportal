@@ -1,8 +1,7 @@
-// routes/usageRoutes.js
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middlewares/authMiddleware');
-const Usage = require('../models/Usage');
+const authMiddleware = require('../middlewares/authMiddleware'); // Fixed path
+const Usage = require('../models/Usage'); // Fixed path
 
 // GET /api/usage
 // Retrieves usage data for the logged-in user

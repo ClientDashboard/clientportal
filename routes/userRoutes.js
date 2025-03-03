@@ -1,8 +1,7 @@
-// routes/userRoutes.js
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middlewares/authMiddleware');
-const User = require('../models/User');
+const authMiddleware = require('../middlewares/authMiddleware'); // Fixed path
+const User = require('../models/User'); // Fixed path
 
 // Existing dashboard endpoint
 router.get('/dashboard', authMiddleware, (req, res) => {

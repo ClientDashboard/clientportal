@@ -1,10 +1,10 @@
-// routes/clientFolderRoutes.js
 const express = require('express');
 const router = express.Router();
-const authMiddleware = require('../middlewares/authMiddleware');
-const planLimits = require('../config/planLimits');
-const ClientFolder = require('../models/ClientFolder');
-const Usage = require('../models/Usage'); // Ensure this is imported
+const authMiddleware = require('../middlewares/authMiddleware'); // Fixed path
+const planLimits = require('../config/planLimits'); // Fixed path
+const ClientFolder = require('../models/ClientFolder'); // Fixed path
+const Usage = require('../models/Usage'); // Fixed path
+const slugify = require('slugify');
 
 router.post('/create', authMiddleware, async (req, res) => {
   try {
@@ -28,7 +28,6 @@ router.post('/create', authMiddleware, async (req, res) => {
     }
 
     // Create the folder
-    const slugify = require('slugify');
     const slug = slugify(folderName, { lower: true }) + '-' + Date.now();
     const newFolder = await ClientFolder.create({
       folderName,
@@ -49,3 +48,4 @@ router.post('/create', authMiddleware, async (req, res) => {
 // other routes...
 
 module.exports = router;
+
