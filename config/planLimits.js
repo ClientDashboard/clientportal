@@ -1,28 +1,38 @@
 // config/planLimits.js
 
-module.exports = {
+const planLimits = {
   basic: {
-    price: 19.99,             // $19.99 per month
-    maxClients: 10,           // Up to 10 clients
-    backupDays: 1,            // 1 day backup retention
-    maxPDFForms: 5,           // 5 PDF form creations to HTML per client
-    customURLAllowed: false,  // No custom URL allowed
-    maxTasks: 5               // 5 tasks creation per client
+    name: "Basic",
+    price: { amount: 19.99, currency: "USD" }, // More readable price format
+    maxClients: 10,           
+    backupDays: 1,            
+    maxPDFForms: 5,           
+    customURLAllowed: false,  
+    maxTasks: 5               
   },
   standard: {
-    price: 59.99,             // $59.99 per month
-    maxClients: 20,           // Up to 20 clients
-    backupDays: 14,           // 14 day backup retention
-    maxPDFForms: 10,          // 10 PDF form creations to HTML per client
-    customURLAllowed: true,   // Custom URL allowed
-    maxTasks: 10              // 10 tasks creation per client
+    name: "Standard",
+    price: { amount: 59.99, currency: "USD" },
+    maxClients: 20,           
+    backupDays: 14,           
+    maxPDFForms: 10,          
+    customURLAllowed: true,   
+    maxTasks: 10              
   },
   pro: {
-    price: 139.95,            // $139.95 per month
-    maxClients: Infinity,     // Unlimited clients
-    backupDays: 30,           // 30 day backup retention
-    maxPDFForms: Infinity,    // Unlimited PDF form creations
-    customURLAllowed: true,   // Custom URL allowed
-    maxTasks: Infinity        // Unlimited tasks creation per client
+    name: "Pro",
+    price: { amount: 139.95, currency: "USD" },
+    maxClients: 9999,       // Large number instead of Infinity
+    backupDays: 30,         
+    maxPDFForms: 9999,      // Large number instead of Infinity
+    customURLAllowed: true, 
+    maxTasks: 9999         
   }
 };
+
+// Function to get a plan by name
+const getPlanDetails = (planName) => {
+  return planLimits[planName] || null;
+};
+
+module.exports = { planLimits, getPlanDetails };

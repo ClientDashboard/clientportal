@@ -2,21 +2,46 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, default: 'client' },
-  // Store the selected plan: basic, standard, or pro.
-  plan: {
-    type: String,
-    enum: ['basic', 'standard', 'pro'],
-    default: 'basic'
+  email: { 
+    type: String, 
+    required: true, 
+    unique: true, 
+    trim: true, 
+    lowercase: true 
   },
-  // Date until which the free trial is valid (15 days from registration)
-  trialExpiresAt: { type: Date },
-  // Optional: Company name for the user's portal
-  companyName: { type: String },
-  // Unique URL slug for the client portal (if company name is provided)
-  clientUrl: { type: String }
+  password: { 
+    type: String, 
+    required: true, 
+    select: false  // Prevent password from being returned in queries
+  },
+  role: { 
+    type: String, 
+    enum: ['client', 'admin'], // Ensure only valid roles are assigned
+    default: 'client' 
+  },
+  plan: { 
+    type: String, 
+    enum: ['basic', 'standard', 'pro'], 
+    default: 'basic' 
+  },
+  trialExpiresAt: { 
+    type: Date 
+  },
+  companyName: { 
+    type: String, 
+    trim: true 
+  },
+  clientUrl: { 
+    type: String, 
+    unique: true,  // Ensures no duplicate URLs
+    trim: true,
+    lowercase: true 
+  }
 }, { timestamps: true });
 
+// Indexing for faster lookups
+UserSchema.index({ email: 1 });
+UserSchema.index({ clientUrl: 1 });
+
 module.exports = mongoose.model('User', UserSchema);
+

@@ -2,28 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Dashboard - Techstyles</title>
-  <!-- Link to your CSS file -->
-  <link rel="stylesheet" href="/dashboard/assets/css/dashboard.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Efectivio</title>
+  <!-- Link to updated CSS files -->
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
   <!-- Sidebar -->
   <aside class="sidebar">
     <div class="sidebar-header">
-      <h2 class="app-name">Menu</h2>
+      <img src="/dashboard/assets/images/primary%20logo.png" alt="Efectivio Logo" class="logo" />
+      <h2 class="app-name">Efectivio</h2>
     </div>
     <nav class="sidebar-nav">
       <ul>
-        <li><a href="#">Dashboard</a></li>
-        <li><a href="#">Clients</a></li>
-        <li><a href="#">Task</a></li>
-        <li><a href="#">PDF Forms</a></li>
-        <li><a href="#">Forms</a></li>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="clients.html">Clients</a></li>
+        <li><a href="tasks.html">Tasks</a></li>
+        <li><a href="forms.html">Forms</a></li>
         <li class="has-submenu">
           <a href="#">Pages</a>
           <ul class="submenu">
-            <li><a href="#">File Manager</a></li>
+            <li><a href="file-manager.html">File Manager</a></li>
           </ul>
         </li>
       </ul>
@@ -42,10 +45,10 @@
       <div class="topbar-right">
         <!-- User Info -->
         <div class="user-info">
-          <img src="/landingpage/assets/images/user-avatar.png" alt="User Avatar" class="user-avatar" />
+          <img src="assets/images/user-avatar.png" alt="User Avatar" class="user-avatar" />
           <div class="user-details">
             <span class="user-name">Sophia Williams</span>
-            <span class="user-status">Welcome back to Techstyles</span>
+            <span class="user-status">Welcome back to Efectivio</span>
           </div>
         </div>
       </div>
@@ -56,10 +59,11 @@
       <h1>Welcome Back!</h1>
       <p>We’ll add the overview sections, tasks, time tracking, etc. here.</p>
     </div>
-
   </div>
 
-  <!-- Optional JS -->
-  <script src="/dashboard/assets/js/dashboard.js"></script>
+  <!-- Scripts -->
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/dashboard.js"></script>
 </body>
 </html>

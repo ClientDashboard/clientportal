@@ -2,9 +2,16 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const Usage = require('../models/Usage'); // If you're creating usage docs upon registration
+const Usage = require('../models/Usage');
+const slugify = require('slugify');
 
-exports.register = async (req, res) => {
+if (!process.env.JWT_SECRET) {
+  console.error("❌ ERROR: Missing JWT_SECRET in .env file!");
+  process.exit(1);
+}
+
+// Register a new user
+exports.register = async (req, res, next) => {
   try {
     const { email, password, plan, companyName } = req.body;
 
@@ -14,9 +21,9 @@ exports.register = async (req, res) => {
       return res.status(400).json({ error: 'Email already registered' });
     }
 
-    // Determine the selected plan; if not provided or invalid, default to "basic"
+    // Validate selected plan; default to "basic" if invalid
     const validPlans = ['basic', 'standard', 'pro'];
-    const selectedPlan = (plan && validPlans.includes(plan)) ? plan : 'basic';
+    const selectedPlan = validPlans.includes(plan) ? plan : 'basic';
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -27,8 +34,15 @@ exports.register = async (req, res) => {
     // Generate a unique client URL if a company name is provided
     let clientUrl = "";
     if (companyName) {
-      const slugify = require('slugify');
-      clientUrl = slugify(companyName, { lower: true }) + '-' + Date.now();
+      let slug = slugify(companyName, { lower: true }) + '-' + Date.now();
+      let existingUserWithSlug = await User.findOne({ clientUrl: slug });
+
+      // Ensure unique slug
+      while (existingUserWithSlug) {
+        slug = slugify(companyName, { lower: true }) + '-' + Date.now();
+        existingUserWithSlug = await User.findOne({ clientUrl: slug });
+      }
+      clientUrl = slug;
     }
 
     // Create the new user
@@ -41,24 +55,27 @@ exports.register = async (req, res) => {
       clientUrl
     });
 
-    // (Optional) Create a usage record for this user if you're tracking usage
+    // Create a usage record for this user (optional)
     await Usage.create({
       user: newUser._id,
       filesCount: 0,
       storageUsed: 0
-      // tasksCount, formsCreated, etc. if needed
     });
+
+    // Remove sensitive data before responding
+    const { password: _, ...userWithoutPassword } = newUser.toObject();
 
     res.status(201).json({
       message: 'User registered successfully',
-      user: newUser
+      user: userWithoutPassword
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };
 
-exports.login = async (req, res) => {
+// User login
+exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
@@ -74,7 +91,7 @@ exports.login = async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Create a JWT payload (include role, plan, etc. if needed)
+    // Create a JWT payload (include role, plan, etc.)
     const payload = {
       id: user._id,
       email: user.email,
@@ -90,6 +107,6 @@ exports.login = async (req, res) => {
       token
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 };

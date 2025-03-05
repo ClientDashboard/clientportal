@@ -1,12 +1,36 @@
 const mongoose = require('mongoose');
 
 const ClientFolderSchema = new mongoose.Schema({
-  folderName: { type: String, required: true },
-  // The unique URL slug that will be shared with clients
-  slug: { type: String, required: true, unique: true },
-  // The owner of the folder (the user who created it)
-  owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  // Optional: you can add additional fields like a description here
-}, { timestamps: true });
+  folderName: { 
+    type: String, 
+    required: true, 
+    trim: true 
+  },
+  slug: { 
+    type: String, 
+    required: true, 
+    unique: true, 
+    trim: true, 
+    lowercase: true, 
+    match: /^[a-z0-9]+(?:-[a-z0-9]+)*$/, // Ensures a clean URL format
+    index: true 
+  },
+  owner: { 
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User', 
+    required: true 
+  },
+  description: { 
+    type: String, 
+    trim: true, 
+    default: "" 
+  }
+}, 
+{ 
+  timestamps: true 
+});
+
+// Add an index for efficient sorting by created date
+ClientFolderSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model('ClientFolder', ClientFolderSchema);
